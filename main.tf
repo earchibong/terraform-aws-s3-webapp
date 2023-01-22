@@ -1,3 +1,4 @@
+/*
 resource "aws_s3_bucket" "bucket" {
   bucket_prefix = "${var.prefix}-${var.name}"
 
@@ -50,4 +51,19 @@ resource "aws_s3_object" "webapp" {
   bucket       = aws_s3_bucket.bucket.id
   content      = file("${path.module}/assets/index.html")
   content_type = "text/html"
+}
+*/
+
+provider "aws" {
+  region = var.region
+}
+
+module "s3-webapp" {
+  source  = "app.terraform.io/mintedtech/s3-webapp/aws"
+  version = "1.0.0"
+  # insert required variables below
+  name    = var.name
+  region  = var.region
+  prefix  = var.prefix
+
 }
